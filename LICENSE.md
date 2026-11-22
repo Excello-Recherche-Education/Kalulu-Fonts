@@ -1,8 +1,11 @@
 # Fonts
 
-The two typefaces Kalulu prints and displays its reading content with. They are
-kept here, beside the language packs, because every program that shows a pack's
-text to a child uses them: the game, and the printed reading booklets.
+The two typefaces Kalulu prints and displays its reading content with, and the
+record of every font in this repository. Every program that shows a pack's text
+to a child uses them: the game, the Prof Tool, the printed reading booklets and
+the user guides. They lived in Kalulu-Languages' `fonts/` until 2026-11-22, and
+were moved here with their history so that each of those repositories could
+mount them instead of keeping a copy (see [`README.md`](README.md)).
 
 | Typeface | Folder | Used for | Version | License | Modified |
 |---|---|---|---|---|---|
@@ -13,8 +16,9 @@ Both are free software: they may be used, copied, embedded in documents and
 apps, and redistributed, including commercially, under the terms of the
 [SIL Open Font License, version 1.1](https://openfontlicense.org). The license
 text travels with each typeface, in its folder's `OFL.txt`, as the license
-requires. Nothing in this folder is under the CC BY-SA 4.0 license that covers
-the rest of this repository: these files are under the OFL only.
+requires. Nothing in this repository is under the CC BY-SA 4.0 license that
+covers the other Kalulu repositories: these files are under the OFL only. The
+`.import` files beside the fonts are Godot's import settings, not fonts.
 
 ---
 
@@ -64,16 +68,13 @@ result under the OFL.
 > letter, so in "Il" they touch the `l` that follows. It is the price of an `I`
 > no child can read as `l`.
 
-### Where copies of it live
+### Where it is used
 
-**This folder holds the reference copy.** Other repositories carry copies of
-these files, and a change is made here first, then copied to them:
-
-| Repository | Copy | How |
-|---|---|---|
-| Kalulu-Frontend | `assets/fonts/kalulu_mulish_*.otf`, `assets/fonts/OFL.txt` | byte-identical copies |
-| Kalulu-Booklets | none — it reads them from its `kalulu-languages/` checkout | — |
-| Kalulu-Manuals | `assets/fonts/kalulu_mulish_*.ttf` | converted to TrueType (`tools/otf_to_ttf.py`) |
+**Nowhere keeps a copy.** Kalulu-Frontend, Kalulu-ProfTool, Kalulu-Languages
+and Kalulu-Manuals mount this repository as a submodule, and Kalulu-Booklets
+reads it through its `kalulu-languages/`. Kalulu-Manuals converts Mulish to
+TrueType at build time, since ReportLab cannot embed CFF outlines. The table in
+[`README.md`](README.md) gives each path.
 
 ---
 
@@ -121,30 +122,34 @@ them when a PDF embeds only the letters it uses, are all allowed.
 
 ## Changing a font here
 
-1. Make the change in this folder, in a pull request like every change to this
-   repository.
+1. Make the change here, in a pull request like every change to this
+   repository, and run `tools/import.sh` if a font file changed.
 2. Update this file: the version, the modifications, the copyright notices.
-3. Copy the new Mulish files to Kalulu-Frontend's `assets/fonts/` in a pull
-   request there, and regenerate Kalulu-Manuals' TrueType copies.
-4. Kalulu-Booklets picks the fonts up when its `kalulu-languages` pointer is
-   moved to the commit that changed them.
+3. Once it is merged, move this repository's pointer in Kalulu-Languages,
+   Kalulu-Frontend, Kalulu-ProfTool and Kalulu-Manuals, in a pull request in
+   each. Kalulu-Booklets follows when its `kalulu-languages` pointer moves.
 
 ## Adding a font for the booklets
 
 A language's booklets can print with another font than Mulish or Marelle, for
 any of the four they use: script regular, bold or black, and cursive
-(`BookletFonts` in [`SCHEMA.md`](../SCHEMA.md)). The font lives here, like these
-two:
+(`BookletFonts` in Kalulu-Languages'
+[`SCHEMA.md`](https://github.com/Excello-Recherche-Education/Kalulu-Languages/blob/main/SCHEMA.md)).
+The font lives here, like these two:
 
 1. Check its license lets it be redistributed: this repository is public. The
    SIL Open Font License does; a font that comes with an operating system or a
    word processor usually does not.
 2. Put the file in a folder of its own here (`andika/Andika-Regular.ttf`), with
-   its license text beside it, and describe it in this file as the two above
-   are, naming the file in backticks: the validator warns about a booklet font
-   this file does not name (rule 10).
-3. Open a pull request. Once it is merged, the Prof Tool can add the font to a
-   language (Booklets, *Language settings*, *Add custom font*) and choose what it
+   its license text beside it, run `tools/import.sh`, and describe it in this
+   file as the two above are, naming the file in backticks. The Check workflow
+   refuses a font this file does not name, and Kalulu-Languages' validator warns
+   about one (rule 10).
+3. Add the new folder to the `exclude_filter` of Kalulu-Frontend's export
+   presets, so the game does not ship it.
+4. Open a pull request. Once it is merged, move the pointer in Kalulu-Languages
+   (its `fonts/`). The Prof Tool can then add the font to a language
+   (Booklets, *Language settings*, *Add custom font*) and choose what it
    replaces.
 
 The booklets need a `.ttf` or `.otf` file, and for the cursive, a font that

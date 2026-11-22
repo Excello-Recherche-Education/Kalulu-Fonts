@@ -1,0 +1,20 @@
+name: Check
+
+# Every font comes with its Godot .import file, its license text and its line
+# in LICENSE.md. See tools/check.sh.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check the fonts
+        run: tools/check.sh
