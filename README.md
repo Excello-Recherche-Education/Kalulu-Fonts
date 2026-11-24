@@ -20,7 +20,7 @@ under the CC BY-SA license of the other Kalulu repositories.
 |---|---|---|
 | [Kalulu-Languages](https://github.com/Excello-Recherche-Education/Kalulu-Languages) | `fonts/` | every font: a pack's `BookletFonts` names its files by their path here |
 | [Kalulu-Frontend](https://github.com/Excello-Recherche-Education/Kalulu-Frontend) | `fonts/` (`res://fonts/`) | Mulish, for the game's interface. Its export presets leave everything else out |
-| [Kalulu-ProfTool](https://github.com/Excello-Recherche-Education/Kalulu-ProfTool) | `project/fonts/` (`res://fonts/`) | Mulish now; every font once it previews the booklets |
+| [Kalulu-ProfTool](https://github.com/Excello-Recherche-Education/Kalulu-ProfTool) | `project/fonts/` (`res://fonts/`) | every font: its Booklets screen previews and builds the booklets |
 | [Kalulu-Manuals](https://github.com/Excello-Recherche-Education/Kalulu-Manuals) | `kalulu-fonts/` | Mulish, converted to TrueType at build time for ReportLab |
 | [Kalulu-Booklets](https://github.com/Excello-Recherche-Education/Kalulu-Booklets) | through its `kalulu-languages/` | every font a booklet prints with |
 
